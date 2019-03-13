@@ -1,20 +1,28 @@
-from .models import NumberConverter
+# from .models import NumberConverter
 from django.http import Http404
 
-from .serializers import NumberConverterSerializer
+from .serializers import RomanSerializer, IntSerializer
+from .converter import Converter
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-class Number(APIView):
-    def get_object(self, pk):
-        try:
-            return NumberConverter.objects.get(pk=pk)
-        except NumberConverter.DoesNotExist:
-            raise Http404
+class RomanToIntView(APIView):
 
+    def post(self, request, format=None):
+        c = Converter()
+        serializer = IntSerializer(data={"int_number":c.roman_to_int(request.data["roman_number"])})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def get(self, request, pk):
-        number = self.get_object(pk)
-        number = NumberConverterSerializer(number)
-        return Response(number.data)
+class IntToRomanView(APIView):
+
+    def post(self, request, format=None):
+        c = Converter()
+        serializer = RomanSerializer(data={"roman_number":c.int_to_roman(request.data["int_number"])})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
