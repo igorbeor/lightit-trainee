@@ -14,12 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
-
-from converter import views
+from django.urls import include, path, re_path
+from django.views.generic.base import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/romantoint/', views.RomanToIntView.as_view()),
-    path('api/inttoroman/', views.IntToRomanView.as_view()),
+    path('converter/', include('converter.urls')),
+    re_path(r'^.*', TemplateView.as_view(template_name="home.html"), name="home")
 ]

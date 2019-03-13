@@ -2,12 +2,6 @@ from rest_framework import serializers
 
 from .models import Number
 
-# TODO: FIX ME
-# class NumberConverterSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = NumberConverter
-#         fields = ('id', 'roman_number', 'int_number')
-
 class RomanSerializer(serializers.Serializer):
    roman_number = serializers.CharField()
 
