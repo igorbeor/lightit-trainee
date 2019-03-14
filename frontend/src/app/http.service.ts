@@ -12,7 +12,7 @@ export class HttpService {
     let httpHeaders = new HttpHeaders({
       'Content-Type' : 'application/json'
     }); 
-    let body = {roman_number: romanNumber};
+    let body = {roman_number: romanNumber, int_number: 0};
     return this.http.post('http://localhost:8000/converter/roman_to_int/', body,
       {
         headers: httpHeaders,
@@ -25,7 +25,7 @@ export class HttpService {
     let httpHeaders = new HttpHeaders({
       'Content-Type' : 'application/json'
     }); 
-    const body = {int_number: intNumber};
+    const body = {roman_number: '', int_number: intNumber};
     return this.http.post('http://localhost:8000/converter/int_to_roman/', body,
       {
         headers: httpHeaders,
