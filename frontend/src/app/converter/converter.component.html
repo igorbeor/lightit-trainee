@@ -1,0 +1,7 @@
+<form [formGroup]="converterForm" (submit)="getIntFromRomanResult()">
+  <textarea id="inputNumber" class="item" formControlName="inputNumber"></textarea>
+  <div class="btn">
+    <button type="submit"  [disabled]="converterForm.invalid"><img src="/static/ang/assets/images/arrow-icons.png" alt=""></button>
+  </div>
+  <textarea id="outputNumber" formControlName="outputNumber" disabled></textarea>
+</form>
